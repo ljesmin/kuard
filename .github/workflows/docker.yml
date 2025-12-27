@@ -43,7 +43,7 @@ jobs:
             ${{ env.IMAGE_NAME }}:blue
 
       - name: Make red
-        id: blue
+        id: red
         run: sed -i 's/ENV VERSION=.*/ENV VERSION=red/' Dockerfile
 
       - name: Build and push Docker image
