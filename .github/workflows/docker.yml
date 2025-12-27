@@ -30,13 +30,27 @@ jobs:
         run: |
           echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
+      - name: Make blue
+        id: blue
+        run: sed -i 's/ENV VERSION=.*/ENV VERSION=blue/' Dockerfile
+
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:blue
+
+      - name: Make red
+        id: blue
+        run: sed -i 's/ENV VERSION=.*/ENV VERSION=red/' Dockerfile
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
             ${{ env.IMAGE_NAME }}:red
 
