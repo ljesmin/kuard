@@ -66,3 +66,15 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:purple
 
+      - name: Make green
+        id: green
+        run: sed -i 's/ENV VERSION=.*/ENV VERSION=green/' Dockerfile
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:green
+
